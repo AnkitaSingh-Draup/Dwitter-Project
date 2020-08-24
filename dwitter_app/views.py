@@ -56,7 +56,7 @@ def dweets_edit( request, pk):
         data = request.data
         dweet = Dweets.objects.get(pk=pk)
         if request.user != dweet.user:
-            return Response("You don't have to edit", status=status.HTTP_401_UNAUTHORIZED)
+            return Response("You don't have permission to edit", status=status.HTTP_401_UNAUTHORIZED)
         serializer = DweetsSerializer(dweet, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
