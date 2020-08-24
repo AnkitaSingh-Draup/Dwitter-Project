@@ -1,5 +1,5 @@
 # Dwitter-Project
-##Project Details
+## Project Details
 Dwitter project basically lets different user to post a dweet.
 The owner of the dweet can edit/delete the dweet.
 If a user want's to see someone else's dweet he/she needs to follow the first person.
