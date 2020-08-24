@@ -39,14 +39,18 @@ def dweets_edit( request, pk):
     elif request.method == 'GET':
         dweet = Dweets.objects.get(pk=pk)
         follow = Followers.objects.filter(following=dweet.user)
-        check = False
-        for i in follow:
-            if request.user == i.followed_by:
-                check = True
-        if (not check ):
-            return Response("Follow user to see dweet",status=status.HTTP_401_UNAUTHORIZED)
-        serializer = DweetsSerializer(dweet)
-        return Response(serializer.data)
+        if request.user == dweet.user:
+            serializer = DweetsSerializer(dweet)
+            return Response(serializer.data)
+        else:
+            check = False
+            for i in follow:
+                if request.user == i.followed_by:
+                    check = True
+            if (not check ):
+                return Response("Follow user to see dweet",status=status.HTTP_401_UNAUTHORIZED)
+            serializer = DweetsSerializer(dweet)
+            return Response(serializer.data)
 
     elif request.method == 'PUT':
         data = request.data
